@@ -17,5 +17,6 @@
     },
     "autoload": {
          "psr-0": { "Eden\\Image": "" }
-    }
+    },
+	"target-dir": "Eden/Image"
 }
