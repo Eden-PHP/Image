@@ -1,7 +1,7 @@
 {
     "name": "eden-php/image",
     "type": "library",
-    "description": "Utility methods for Eden Core",
+    "description": "Eden image component",
     "keywords": ["eden", "library"],
     "homepage": "http://eden-php.com",
     "license": "MIT",
@@ -16,6 +16,6 @@
 		"eden-php/core": "1.*"
     },
     "autoload": {
-         "psr-0": { "Eden\\Images": "" }
+         "psr-0": { "Eden\\Image": "" }
     }
 }
