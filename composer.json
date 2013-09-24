@@ -1,5 +1,5 @@
 {
-    "name": "eden-php/image",
+    "name": "eden/image",
     "type": "library",
     "description": "Eden image component",
     "keywords": ["eden", "library"],
