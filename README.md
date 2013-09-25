@@ -59,7 +59,7 @@ When your happy with your image you have the choices to save it to a file or ech
 
 ====
 
-#Contibuting to Eden
+#Contributing to Eden
 
 ##Setting up your machine with the Eden repository and your fork
 
