@@ -44,7 +44,7 @@ Though *Eden's* image object solves for most general cases. There will be times 
 
 	$image->getResource(); // get the GD resource for advanced editing
 
-When your happy with your image you have the choices to save it to a file or echo to screen. Figure 5 and Figure 6 both show ways to get the final image. 
+When your happy with your image you have the choices to save it to a file or echo to screen. `Figure 5` and `Figure 6` both show ways to get the final image. 
 
 > **Note:** When echoing an image, make sure there is no other data outputted or the final output will look broken.
 
