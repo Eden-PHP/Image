@@ -9,8 +9,6 @@
 
 namespace Eden\Image;
 
-use Eden\Core\Base as CoreBase;
-
 /**
  * The base class for all classes wishing to integrate with Eden.
  * Extending this class will allow your methods to seemlessly be
@@ -18,12 +16,11 @@ use Eden\Core\Base as CoreBase;
  * loading patterns.
  *
  * @vendor Eden
- * @package Image
+ * @package image
  * @author Christian Blanquera cblanquera@openovate.com
  */
-class Base extends CoreBase
+class Index extends Base
 {
-
 	const GD_NOT_INSTALLED = 'PHP GD Library is not installed.';
     const NOT_VALID_IMAGE_FILE = '%s is not a valid image file.';
 
@@ -116,13 +113,12 @@ class Base extends CoreBase
         }
 
         return ob_get_clean();
-
     }
 
     /**
      * Applies the selective blur filter. Blurs the image
      *
-     * @return Eden\Image\Image
+     * @return this
      */
     public function blur()
     {
@@ -136,7 +132,7 @@ class Base extends CoreBase
      * Applies the brightness filter. Changes the brightness of the image.
      *
      * @param *number level
-     * @return Eden\Image\Image
+     * @return this
      */
     public function brightness($level)
     {
@@ -156,7 +152,7 @@ class Base extends CoreBase
      * @param *number blue
      * @param *number green
      * @param number alpha
-     * @return Eden\Image\Image
+     * @return this
      */
     public function colorize($red, $blue, $green, $alpha = 0)
     {
@@ -181,7 +177,7 @@ class Base extends CoreBase
      * Applies the contrast filter. Changes the contrast of the image.
      *
      * @param *number level
-     * @return Eden\Image\Image
+     * @return this
      */
     public function contrast($level)
     {
@@ -199,7 +195,7 @@ class Base extends CoreBase
      *
      * @param int|null the width; if null will use the original width
      * @param int|null the height; if null will use the original height
-     * @return Eden\Image\Image
+     * @return this
      */
     public function crop($width = null, $height = null)
     {
@@ -330,7 +326,7 @@ class Base extends CoreBase
     /**
      * Applies the edgedetect filter. Uses edge detection to highlight the edges in the image.
      *
-     * @return Eden\Image\Image
+     * @return this
      */
     public function edgedetect()
     {
@@ -343,7 +339,7 @@ class Base extends CoreBase
     /**
      * Applies the emboss filter. Embosses the image.
      *
-     * @return Eden\Image\Image
+     * @return this
      */
     public function emboss()
     {
@@ -356,7 +352,7 @@ class Base extends CoreBase
     /**
      * Applies the gaussian blur filter. Blurs the image using the Gaussian method.
      *
-     * @return Eden\Image\Image
+     * @return this
      */
     public function gaussianBlur()
     {
@@ -389,7 +385,7 @@ class Base extends CoreBase
     /**
      * Applies the greyscale filter. Converts the image into grayscale.
      *
-     * @return Eden\Image\Image
+     * @return this
      */
     public function greyscale()
     {
@@ -403,7 +399,7 @@ class Base extends CoreBase
      * Inverts the image.
      *
      * @param bool if true invert vertical; if false invert horizontal
-     * @return Eden\Image\Image
+     * @return this
      */
     public function invert($vertical = false)
     {
@@ -454,7 +450,7 @@ class Base extends CoreBase
     /**
      * Applies the mean removal filter. Uses mean removal to achieve a "sketchy" effect.
      *
-     * @return Eden\Image\Image
+     * @return this
      */
     public function meanRemoval()
     {
@@ -467,7 +463,7 @@ class Base extends CoreBase
     /**
      * Applies the greyscale filter. Reverses all colors of the image.
      *
-     * @return Eden\Image\Image
+     * @return this
      */
     public function negative()
     {
@@ -483,7 +479,7 @@ class Base extends CoreBase
      *
      * @param int|null the width; if null will use the original width
      * @param int|null the height; if null will use the original height
-     * @return Eden\Image\Image
+     * @return this
      */
     public function resize($width = null, $height = null)
     {
@@ -549,7 +545,7 @@ class Base extends CoreBase
      *
      * @param *int the degree to rotate by
      * @param int background color code
-     * @return Eden\Image\Image
+     * @return this
      */
     public function rotate($degree, $background = 0)
     {
@@ -579,7 +575,7 @@ class Base extends CoreBase
      *
      * @param int|null the width; if null will use the original width
      * @param int|null the height; if null will use the original height
-     * @return Eden\Image\Image
+     * @return this
      */
     public function scale($width = null, $height = null)
     {
@@ -629,7 +625,7 @@ class Base extends CoreBase
     /**
      * Sets the background color to be transparent
      *
-     * @return Eden\Image\Image
+     * @return this
      */
     public function setTransparency()
     {
@@ -643,7 +639,7 @@ class Base extends CoreBase
      * Applies the smooth filter. Makes the image smoother.
      *
      * @param *number level
-     * @return Eden\Image\Image
+     * @return this
      */
     public function smooth($level)
     {
@@ -661,7 +657,7 @@ class Base extends CoreBase
      *
      * @param *string the path to save to
      * @param string|null the render type
-     * @return Eden\Image\Image
+     * @return this
      */
     public function save($path, $type = null)
     {
@@ -669,9 +665,8 @@ class Base extends CoreBase
         #imagegif() - Output image to browser or file
         #imagewbmp() - Output image to browser or file
         #imagejpeg() - Output image to browser or file
-        //$path = Path::i()->getAbsolute($path);
-
-        if(!$type) {
+        
+		if(!$type) {
             $type = $this->type;
         }
 

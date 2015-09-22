@@ -1,7 +1,7 @@
 {
     "name": "eden/image",
     "type": "library",
-    "description": "Eden image component",
+    "description": "Eden image component.",
     "keywords": ["eden", "library"],
     "homepage": "http://eden-php.com",
     "license": "MIT",
@@ -13,10 +13,9 @@
     ],
     "require": {
         "php": ">=5.3.1",
-		"eden/core": "1.*"
+		"eden/file": "2.*",
     },
     "autoload": {
-         "psr-0": { "Eden\\Image": "" }
-    },
-	"target-dir": "Eden/Image"
+         "psr-4": { "Eden\\Image\\": "/src" }
+    }
 }
