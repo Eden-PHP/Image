@@ -21,7 +21,7 @@ namespace Eden\Image;
  */
 class Index extends Base
 {
-	const GD_NOT_INSTALLED = 'PHP GD Library is not installed.';
+    const GD_NOT_INSTALLED = 'PHP GD Library is not installed.';
     const NOT_VALID_IMAGE_FILE = '%s is not a valid image file.';
 
     protected $resource = null;
@@ -40,14 +40,14 @@ class Index extends Base
     public function __construct($data, $type = null, $path = true, $quality = 75)
     {
         Argument::i()
-			//argument 1 must be a string
-            ->test(1, 'string')         
-			//argument 2 must be a string or null
-            ->test(2, 'string', 'null') 
-			//argument 3 must be a boolean
-            ->test(3, 'bool')           
-			//argument 4 must be an integer
-            ->test(4, 'int');           
+            //argument 1 must be a string
+            ->test(1, 'string')
+            //argument 2 must be a string or null
+            ->test(2, 'string', 'null')
+            //argument 3 must be a boolean
+            ->test(3, 'bool')
+            //argument 4 must be an integer
+            ->test(4, 'int');
 
         $this->type = $type;
 
@@ -69,7 +69,7 @@ class Index extends Base
      */
     public function __destruct()
     {
-        if($this->resource) {
+        if ($this->resource) {
             imagedestroy($this->resource);
         }
     }
@@ -93,7 +93,7 @@ class Index extends Base
             case 'png':
                 $quality = (100 - $this->quality) / 10;
 
-                if($quality > 9) {
+                if ($quality > 9) {
                     $quality = 9;
                 }
 
@@ -158,14 +158,14 @@ class Index extends Base
     {
         //argument test
         Argument::i()
-			//Argument 1 must be a number
-            ->test(1, 'numeric')  
-			//Argument 2 must be a number
-            ->test(2, 'numeric')  
-			//Argument 3 must be a number
-            ->test(3, 'numeric') 
-			//Argument 4 must be a number
-            ->test(4, 'numeric'); 
+            //Argument 1 must be a number
+            ->test(1, 'numeric')
+            //Argument 2 must be a number
+            ->test(2, 'numeric')
+            //Argument 3 must be a number
+            ->test(3, 'numeric')
+            //Argument 4 must be a number
+            ->test(4, 'numeric');
 
         //apply filter
         imagefilter($this->resource, IMG_FILTER_COLORIZE, $red, $blue, $green, $alpha);
@@ -201,27 +201,27 @@ class Index extends Base
     {
         //argument test
         Argument::i()
-			//Argument 1 must be a number or null
-            ->test(1, 'numeric', 'null')	
-			//Argument 2 must be a number or null
-            ->test(2, 'numeric', 'null');	
+            //Argument 1 must be a number or null
+            ->test(1, 'numeric', 'null')
+            //Argument 2 must be a number or null
+            ->test(2, 'numeric', 'null');
 
         //get the source width and height
         $orgWidth = imagesx($this->resource);
         $orgHeight = imagesy($this->resource);
 
         //set the width if none is defined
-        if(is_null($width)) {
+        if (is_null($width)) {
             $width = $orgWidth;
         }
 
         //set the height if none is defined
-        if(is_null($height)) {
+        if (is_null($height)) {
             $height = $orgHeight;
         }
 
         //if the width and height are the same as the originals
-        if($width == $orgWidth && $height == $orgHeight) {
+        if ($width == $orgWidth && $height == $orgHeight) {
             //there's no need to process
             return $this;
         }
@@ -236,18 +236,18 @@ class Index extends Base
 
         //if the width is greater than the original width
         //or if the height is greater than the original height
-        if($width > $orgWidth || $height > $orgHeight) {
+        if ($width > $orgWidth || $height > $orgHeight) {
             //save the destination width and height
             //because they will change here
             $newWidth = $width;
             $newHeight = $height;
 
             //if the desired height is larger than the desired width
-            if($height > $width) {
+            if ($height > $width) {
                 //and adjust the height instead
                 $height = $this->getHeightAspectRatio($orgWidth, $orgHeight, $width);
                 //if the aspect height is bigger than the desired height
-                if($newHeight > $height) {
+                if ($newHeight > $height) {
                     //set it back to the desired height
                     $height = $newHeight;
                     //and adjust the width instead
@@ -271,7 +271,7 @@ class Index extends Base
                 //get the width aspect ratio
                 $width = $this->getWidthAspectRatio($orgWidth, $orgHeight, $height);
                 //if the aspect height is bigger than the desired height
-                if($newWidth > $width) {
+                if ($newWidth > $width) {
                     //set it back to the desired height
                     $width = $newWidth;
                     //and adjust the width instead
@@ -293,7 +293,7 @@ class Index extends Base
             }
         } else {
             //if the width is less than the original width
-            if($width < $orgWidth) {
+            if ($width < $orgWidth) {
                 //set the x Position of the source to the center of the
                 //original image width minus half the desired width
                 $xPosition = ($orgWidth / 2) - ($width / 2);
@@ -302,7 +302,7 @@ class Index extends Base
             }
 
             //if the height is less than the original height
-            if($height < $orgHeight) {
+            if ($height < $orgHeight) {
                 //set the y Position of the source to the center of the
                 //original image height minus half the desired height
                 $yPosition = ($orgHeight / 2) - ($height / 2);
@@ -412,7 +412,7 @@ class Index extends Base
 
         $invert = imagecreatetruecolor($orgWidth, $orgHeight);
 
-        if($vertical) {
+        if ($vertical) {
             imagecopyresampled(
                 $invert,
                 $this->resource,
@@ -423,7 +423,8 @@ class Index extends Base
                 $orgWidth,
                 $orgHeight,
                 $orgWidth,
-                0-$orgHeight);
+                0-$orgHeight
+            );
         } else {
             imagecopyresampled(
                 $invert,
@@ -435,7 +436,8 @@ class Index extends Base
                 $orgWidth,
                 $orgHeight,
                 0-$orgWidth,
-                $orgHeight);
+                $orgHeight
+            );
         }
 
         //destroy the original resource
@@ -485,27 +487,27 @@ class Index extends Base
     {
         //argument test
         Argument::i()
-			//Argument 1 must be a number or null
-            ->test(1, 'numeric', 'null')  
-			//Argument 2 must be a number or null
-            ->test(2, 'numeric', 'null'); 
+            //Argument 1 must be a number or null
+            ->test(1, 'numeric', 'null')
+            //Argument 2 must be a number or null
+            ->test(2, 'numeric', 'null');
 
         //get the source width and height
         $orgWidth = imagesx($this->resource);
         $orgHeight = imagesy($this->resource);
 
         //set the width if none is defined
-        if(is_null($width)) {
+        if (is_null($width)) {
             $width = $orgWidth;
         }
 
         //set the height if none is defined
-        if(is_null($height)) {
+        if (is_null($height)) {
             $height = $orgHeight;
         }
 
         //if the width and height are the same as the originals
-        if($width == $orgWidth && $height == $orgHeight) {
+        if ($width == $orgWidth && $height == $orgHeight) {
             //there's no need to process
             return $this;
         }
@@ -514,11 +516,11 @@ class Index extends Base
         $newHeight = $height;
 
         //if the desired height is larger than the desired width
-        if($height < $width) {
+        if ($height < $width) {
             //get the width aspect ratio
             $width = $this->getWidthAspectRatio($orgWidth, $orgHeight, $height);
             //if the aspect width is bigger than the desired width
-            if($newWidth < $width) {
+            if ($newWidth < $width) {
                 //set it back to the desired width
                 $width = $newWidth;
                 //and adjust the height instead
@@ -529,7 +531,7 @@ class Index extends Base
             //get the width aspect ratio
             $height = $this->getHeightAspectRatio($orgWidth, $orgHeight, $width);
             //if the aspect height is bigger than the desired height
-            if($newHeight < $height) {
+            if ($newHeight < $height) {
                 //set it back to the desired height
                 $height = $newHeight;
                 //and adjust the width instead
@@ -551,10 +553,10 @@ class Index extends Base
     {
         //argument test
         Argument::i()
-			//Argument 1 must be a number
-            ->test(1, 'numeric')	
-			//Argument 2 must be a number
-            ->test(2, 'numeric');	
+            //Argument 1 must be a number
+            ->test(1, 'numeric')
+            //Argument 2 must be a number
+            ->test(2, 'numeric');
 
         //rotate the image
         $rotate = imagerotate($this->resource, $degree, $background);
@@ -581,27 +583,27 @@ class Index extends Base
     {
         //argument test
         Argument::i()
-			//Argument 1 must be a number or null
-            ->test(1, 'numeric', 'null')	
-			//Argument 2 must be a number or null
-            ->test(2, 'numeric', 'null');	
+            //Argument 1 must be a number or null
+            ->test(1, 'numeric', 'null')
+            //Argument 2 must be a number or null
+            ->test(2, 'numeric', 'null');
 
         //get the source width and height
         $orgWidth = imagesx($this->resource);
         $orgHeight = imagesy($this->resource);
 
         //set the width if none is defined
-        if(is_null($width)) {
+        if (is_null($width)) {
             $width = $orgWidth;
         }
 
         //set the height if none is defined
-        if(is_null($height)) {
+        if (is_null($height)) {
             $height = $orgHeight;
         }
 
         //if the width and height are the same as the originals
-        if($width == $orgWidth && $height == $orgHeight) {
+        if ($width == $orgWidth && $height == $orgHeight) {
             //there's no need to process
             return $this;
         }
@@ -629,8 +631,8 @@ class Index extends Base
      */
     public function setTransparency()
     {
-        imagealphablending( $this->resource, false );
-        imagesavealpha( $this->resource, true );
+        imagealphablending($this->resource, false);
+        imagesavealpha($this->resource, true);
 
         return $this;
     }
@@ -666,7 +668,7 @@ class Index extends Base
         #imagewbmp() - Output image to browser or file
         #imagejpeg() - Output image to browser or file
         
-		if(!$type) {
+        if (!$type) {
             $type = $this->type;
         }
 
@@ -677,7 +679,7 @@ class Index extends Base
             case 'png':
                 $quality = (100 - $this->quality) / 10;
 
-                if($quality > 9) {
+                if ($quality > 9) {
                     $quality = 9;
                 }
 
@@ -723,7 +725,7 @@ class Index extends Base
     protected function createResource($data, $path)
     {
         //if the GD Library is not installed
-        if(!function_exists('gd_info')) {
+        if (!function_exists('gd_info')) {
             //throw error
             Exception::i(self::GD_NOT_INSTALLED)->trigger();
         }
@@ -739,7 +741,7 @@ class Index extends Base
 
         $resource = false;
 
-        if(!$path) {
+        if (!$path) {
             return imagecreatefromstring($data);
         }
 
@@ -773,7 +775,7 @@ class Index extends Base
         }
 
         //if there is no resource still
-        if(!$resource) {
+        if (!$resource) {
             //throw error
             Exception::i()
                 ->setMessage(self::NOT_VALID_IMAGE_FILE)
@@ -796,5 +798,4 @@ class Index extends Base
         $ratio = $destinationHeight / $sourceHeight;
         return  $sourceWidth * $ratio;
     }
-
 }
