@@ -86,7 +86,7 @@ class Index extends Base
         #imagewbmp() - Output image to browser or file
         #imagejpeg() - Output image to browser or file
         ob_start();
-        switch($this->type) {
+        switch ($this->type) {
             case 'gif':
                 imagegif($this->resource);
                 break;
@@ -672,7 +672,7 @@ class Index extends Base
             $type = $this->type;
         }
 
-        switch($type) {
+        switch ($type) {
             case 'gif':
                 imagegif($this->resource, $path);
                 break;
@@ -747,7 +747,7 @@ class Index extends Base
 
         //depending on the extension lets load
         //the file using the right GD loader
-        switch($this->type) {
+        switch ($this->type) {
             case 'gd':
                 $resource = imagecreatefromgd($data);
                 break;
