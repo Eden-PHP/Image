@@ -1,3 +1,5 @@
+[![Build Status](https://api.travis-ci.org/Eden-PHP/Image.png)](https://travis-ci.org/Eden-PHP/Image)
+===
 # Images
 
 Images Manipulation in *Eden* takes the leg work from trying to figure it out on your own. There are two ways to load images in Eden; by the file name or the data itself.
