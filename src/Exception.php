@@ -1,6 +1,6 @@
 <?php //-->
 /*
- * This file is part of the Image package of the Eden PHP Library.
+ * This file is part of the System package of the Eden PHP Library.
  * (c) 2013-2014 Openovate Labs
  *
  * Copyright and license information can be found at LICENSE
@@ -8,8 +8,6 @@
  */
 
 namespace Eden\Image;
-
-use Eden\Core\Exception as CoreException;
 
 /**
  * The base class for any class handling exceptions. Exceptions
@@ -20,9 +18,9 @@ use Eden\Core\Exception as CoreException;
  * started to where the program stopped.
  *
  * @vendor Eden
- * @package Image
+ * @package image
  * @author Christian Blanquera cblanquera@openovate.com
  */
-class Exception extends CoreException
+class Exception extends \Eden\Core\Exception
 {
 }

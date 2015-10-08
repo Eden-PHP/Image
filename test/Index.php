@@ -8,13 +8,11 @@
  * Copyright and license information can be found at LICENSE
  * distributed with this package.
  */
-
-class Eden_Image_Tests_Image_ImageTest extends \PHPUnit_Framework_TestCase {
-
+class EdenImageIndexTest extends PHPUnit_Framework_TestCase 
+{
     public function testBlur() {
-        $class = eden('image', realpath(__DIR__ . '/../assets/stars.gif'), 'gif');
+        $class = eden('image', __DIR__ . '/assets/stars.gif', 'gif');
 //        var_dump($class->getDimensions());
-        $this->assertInstanceOf('Eden\Image\Base', $class);
+        $this->assertInstanceOf('Eden\Image\Index', $class);
     }
-
 }

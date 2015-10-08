@@ -9,8 +9,6 @@
 
 namespace Eden\Image;
 
-use Eden\Core\Base as CoreBase;
-
 /**
  * The base class for all classes wishing to integrate with Eden.
  * Extending this class will allow your methods to seemlessly be
@@ -18,13 +16,12 @@ use Eden\Core\Base as CoreBase;
  * loading patterns.
  *
  * @vendor Eden
- * @package Image
+ * @package image
  * @author Christian Blanquera cblanquera@openovate.com
  */
-class Base extends CoreBase
+class Index extends Base
 {
-
-	const GD_NOT_INSTALLED = 'PHP GD Library is not installed.';
+    const GD_NOT_INSTALLED = 'PHP GD Library is not installed.';
     const NOT_VALID_IMAGE_FILE = '%s is not a valid image file.';
 
     protected $resource = null;
@@ -43,14 +40,14 @@ class Base extends CoreBase
     public function __construct($data, $type = null, $path = true, $quality = 75)
     {
         Argument::i()
-			//argument 1 must be a string
-            ->test(1, 'string')         
-			//argument 2 must be a string or null
-            ->test(2, 'string', 'null') 
-			//argument 3 must be a boolean
-            ->test(3, 'bool')           
-			//argument 4 must be an integer
-            ->test(4, 'int');           
+            //argument 1 must be a string
+            ->test(1, 'string')
+            //argument 2 must be a string or null
+            ->test(2, 'string', 'null')
+            //argument 3 must be a boolean
+            ->test(3, 'bool')
+            //argument 4 must be an integer
+            ->test(4, 'int');
 
         $this->type = $type;
 
@@ -72,7 +69,7 @@ class Base extends CoreBase
      */
     public function __destruct()
     {
-        if($this->resource) {
+        if ($this->resource) {
             imagedestroy($this->resource);
         }
     }
@@ -89,14 +86,14 @@ class Base extends CoreBase
         #imagewbmp() - Output image to browser or file
         #imagejpeg() - Output image to browser or file
         ob_start();
-        switch($this->type) {
+        switch ($this->type) {
             case 'gif':
                 imagegif($this->resource);
                 break;
             case 'png':
                 $quality = (100 - $this->quality) / 10;
 
-                if($quality > 9) {
+                if ($quality > 9) {
                     $quality = 9;
                 }
 
@@ -116,13 +113,12 @@ class Base extends CoreBase
         }
 
         return ob_get_clean();
-
     }
 
     /**
      * Applies the selective blur filter. Blurs the image
      *
-     * @return Eden\Image\Image
+     * @return this
      */
     public function blur()
     {
@@ -136,7 +132,7 @@ class Base extends CoreBase
      * Applies the brightness filter. Changes the brightness of the image.
      *
      * @param *number level
-     * @return Eden\Image\Image
+     * @return this
      */
     public function brightness($level)
     {
@@ -156,20 +152,20 @@ class Base extends CoreBase
      * @param *number blue
      * @param *number green
      * @param number alpha
-     * @return Eden\Image\Image
+     * @return this
      */
     public function colorize($red, $blue, $green, $alpha = 0)
     {
         //argument test
         Argument::i()
-			//Argument 1 must be a number
-            ->test(1, 'numeric')  
-			//Argument 2 must be a number
-            ->test(2, 'numeric')  
-			//Argument 3 must be a number
-            ->test(3, 'numeric') 
-			//Argument 4 must be a number
-            ->test(4, 'numeric'); 
+            //Argument 1 must be a number
+            ->test(1, 'numeric')
+            //Argument 2 must be a number
+            ->test(2, 'numeric')
+            //Argument 3 must be a number
+            ->test(3, 'numeric')
+            //Argument 4 must be a number
+            ->test(4, 'numeric');
 
         //apply filter
         imagefilter($this->resource, IMG_FILTER_COLORIZE, $red, $blue, $green, $alpha);
@@ -181,7 +177,7 @@ class Base extends CoreBase
      * Applies the contrast filter. Changes the contrast of the image.
      *
      * @param *number level
-     * @return Eden\Image\Image
+     * @return this
      */
     public function contrast($level)
     {
@@ -199,33 +195,33 @@ class Base extends CoreBase
      *
      * @param int|null the width; if null will use the original width
      * @param int|null the height; if null will use the original height
-     * @return Eden\Image\Image
+     * @return this
      */
     public function crop($width = null, $height = null)
     {
         //argument test
         Argument::i()
-			//Argument 1 must be a number or null
-            ->test(1, 'numeric', 'null')	
-			//Argument 2 must be a number or null
-            ->test(2, 'numeric', 'null');	
+            //Argument 1 must be a number or null
+            ->test(1, 'numeric', 'null')
+            //Argument 2 must be a number or null
+            ->test(2, 'numeric', 'null');
 
         //get the source width and height
         $orgWidth = imagesx($this->resource);
         $orgHeight = imagesy($this->resource);
 
         //set the width if none is defined
-        if(is_null($width)) {
+        if (is_null($width)) {
             $width = $orgWidth;
         }
 
         //set the height if none is defined
-        if(is_null($height)) {
+        if (is_null($height)) {
             $height = $orgHeight;
         }
 
         //if the width and height are the same as the originals
-        if($width == $orgWidth && $height == $orgHeight) {
+        if ($width == $orgWidth && $height == $orgHeight) {
             //there's no need to process
             return $this;
         }
@@ -240,18 +236,18 @@ class Base extends CoreBase
 
         //if the width is greater than the original width
         //or if the height is greater than the original height
-        if($width > $orgWidth || $height > $orgHeight) {
+        if ($width > $orgWidth || $height > $orgHeight) {
             //save the destination width and height
             //because they will change here
             $newWidth = $width;
             $newHeight = $height;
 
             //if the desired height is larger than the desired width
-            if($height > $width) {
+            if ($height > $width) {
                 //and adjust the height instead
                 $height = $this->getHeightAspectRatio($orgWidth, $orgHeight, $width);
                 //if the aspect height is bigger than the desired height
-                if($newHeight > $height) {
+                if ($newHeight > $height) {
                     //set it back to the desired height
                     $height = $newHeight;
                     //and adjust the width instead
@@ -275,7 +271,7 @@ class Base extends CoreBase
                 //get the width aspect ratio
                 $width = $this->getWidthAspectRatio($orgWidth, $orgHeight, $height);
                 //if the aspect height is bigger than the desired height
-                if($newWidth > $width) {
+                if ($newWidth > $width) {
                     //set it back to the desired height
                     $width = $newWidth;
                     //and adjust the width instead
@@ -297,7 +293,7 @@ class Base extends CoreBase
             }
         } else {
             //if the width is less than the original width
-            if($width < $orgWidth) {
+            if ($width < $orgWidth) {
                 //set the x Position of the source to the center of the
                 //original image width minus half the desired width
                 $xPosition = ($orgWidth / 2) - ($width / 2);
@@ -306,7 +302,7 @@ class Base extends CoreBase
             }
 
             //if the height is less than the original height
-            if($height < $orgHeight) {
+            if ($height < $orgHeight) {
                 //set the y Position of the source to the center of the
                 //original image height minus half the desired height
                 $yPosition = ($orgHeight / 2) - ($height / 2);
@@ -330,7 +326,7 @@ class Base extends CoreBase
     /**
      * Applies the edgedetect filter. Uses edge detection to highlight the edges in the image.
      *
-     * @return Eden\Image\Image
+     * @return this
      */
     public function edgedetect()
     {
@@ -343,7 +339,7 @@ class Base extends CoreBase
     /**
      * Applies the emboss filter. Embosses the image.
      *
-     * @return Eden\Image\Image
+     * @return this
      */
     public function emboss()
     {
@@ -356,7 +352,7 @@ class Base extends CoreBase
     /**
      * Applies the gaussian blur filter. Blurs the image using the Gaussian method.
      *
-     * @return Eden\Image\Image
+     * @return this
      */
     public function gaussianBlur()
     {
@@ -389,7 +385,7 @@ class Base extends CoreBase
     /**
      * Applies the greyscale filter. Converts the image into grayscale.
      *
-     * @return Eden\Image\Image
+     * @return this
      */
     public function greyscale()
     {
@@ -403,7 +399,7 @@ class Base extends CoreBase
      * Inverts the image.
      *
      * @param bool if true invert vertical; if false invert horizontal
-     * @return Eden\Image\Image
+     * @return this
      */
     public function invert($vertical = false)
     {
@@ -416,7 +412,7 @@ class Base extends CoreBase
 
         $invert = imagecreatetruecolor($orgWidth, $orgHeight);
 
-        if($vertical) {
+        if ($vertical) {
             imagecopyresampled(
                 $invert,
                 $this->resource,
@@ -427,7 +423,8 @@ class Base extends CoreBase
                 $orgWidth,
                 $orgHeight,
                 $orgWidth,
-                0-$orgHeight);
+                0-$orgHeight
+            );
         } else {
             imagecopyresampled(
                 $invert,
@@ -439,7 +436,8 @@ class Base extends CoreBase
                 $orgWidth,
                 $orgHeight,
                 0-$orgWidth,
-                $orgHeight);
+                $orgHeight
+            );
         }
 
         //destroy the original resource
@@ -454,7 +452,7 @@ class Base extends CoreBase
     /**
      * Applies the mean removal filter. Uses mean removal to achieve a "sketchy" effect.
      *
-     * @return Eden\Image\Image
+     * @return this
      */
     public function meanRemoval()
     {
@@ -467,7 +465,7 @@ class Base extends CoreBase
     /**
      * Applies the greyscale filter. Reverses all colors of the image.
      *
-     * @return Eden\Image\Image
+     * @return this
      */
     public function negative()
     {
@@ -483,33 +481,33 @@ class Base extends CoreBase
      *
      * @param int|null the width; if null will use the original width
      * @param int|null the height; if null will use the original height
-     * @return Eden\Image\Image
+     * @return this
      */
     public function resize($width = null, $height = null)
     {
         //argument test
         Argument::i()
-			//Argument 1 must be a number or null
-            ->test(1, 'numeric', 'null')  
-			//Argument 2 must be a number or null
-            ->test(2, 'numeric', 'null'); 
+            //Argument 1 must be a number or null
+            ->test(1, 'numeric', 'null')
+            //Argument 2 must be a number or null
+            ->test(2, 'numeric', 'null');
 
         //get the source width and height
         $orgWidth = imagesx($this->resource);
         $orgHeight = imagesy($this->resource);
 
         //set the width if none is defined
-        if(is_null($width)) {
+        if (is_null($width)) {
             $width = $orgWidth;
         }
 
         //set the height if none is defined
-        if(is_null($height)) {
+        if (is_null($height)) {
             $height = $orgHeight;
         }
 
         //if the width and height are the same as the originals
-        if($width == $orgWidth && $height == $orgHeight) {
+        if ($width == $orgWidth && $height == $orgHeight) {
             //there's no need to process
             return $this;
         }
@@ -518,11 +516,11 @@ class Base extends CoreBase
         $newHeight = $height;
 
         //if the desired height is larger than the desired width
-        if($height < $width) {
+        if ($height < $width) {
             //get the width aspect ratio
             $width = $this->getWidthAspectRatio($orgWidth, $orgHeight, $height);
             //if the aspect width is bigger than the desired width
-            if($newWidth < $width) {
+            if ($newWidth < $width) {
                 //set it back to the desired width
                 $width = $newWidth;
                 //and adjust the height instead
@@ -533,7 +531,7 @@ class Base extends CoreBase
             //get the width aspect ratio
             $height = $this->getHeightAspectRatio($orgWidth, $orgHeight, $width);
             //if the aspect height is bigger than the desired height
-            if($newHeight < $height) {
+            if ($newHeight < $height) {
                 //set it back to the desired height
                 $height = $newHeight;
                 //and adjust the width instead
@@ -549,16 +547,16 @@ class Base extends CoreBase
      *
      * @param *int the degree to rotate by
      * @param int background color code
-     * @return Eden\Image\Image
+     * @return this
      */
     public function rotate($degree, $background = 0)
     {
         //argument test
         Argument::i()
-			//Argument 1 must be a number
-            ->test(1, 'numeric')	
-			//Argument 2 must be a number
-            ->test(2, 'numeric');	
+            //Argument 1 must be a number
+            ->test(1, 'numeric')
+            //Argument 2 must be a number
+            ->test(2, 'numeric');
 
         //rotate the image
         $rotate = imagerotate($this->resource, $degree, $background);
@@ -579,33 +577,33 @@ class Base extends CoreBase
      *
      * @param int|null the width; if null will use the original width
      * @param int|null the height; if null will use the original height
-     * @return Eden\Image\Image
+     * @return this
      */
     public function scale($width = null, $height = null)
     {
         //argument test
         Argument::i()
-			//Argument 1 must be a number or null
-            ->test(1, 'numeric', 'null')	
-			//Argument 2 must be a number or null
-            ->test(2, 'numeric', 'null');	
+            //Argument 1 must be a number or null
+            ->test(1, 'numeric', 'null')
+            //Argument 2 must be a number or null
+            ->test(2, 'numeric', 'null');
 
         //get the source width and height
         $orgWidth = imagesx($this->resource);
         $orgHeight = imagesy($this->resource);
 
         //set the width if none is defined
-        if(is_null($width)) {
+        if (is_null($width)) {
             $width = $orgWidth;
         }
 
         //set the height if none is defined
-        if(is_null($height)) {
+        if (is_null($height)) {
             $height = $orgHeight;
         }
 
         //if the width and height are the same as the originals
-        if($width == $orgWidth && $height == $orgHeight) {
+        if ($width == $orgWidth && $height == $orgHeight) {
             //there's no need to process
             return $this;
         }
@@ -629,12 +627,12 @@ class Base extends CoreBase
     /**
      * Sets the background color to be transparent
      *
-     * @return Eden\Image\Image
+     * @return this
      */
     public function setTransparency()
     {
-        imagealphablending( $this->resource, false );
-        imagesavealpha( $this->resource, true );
+        imagealphablending($this->resource, false);
+        imagesavealpha($this->resource, true);
 
         return $this;
     }
@@ -643,7 +641,7 @@ class Base extends CoreBase
      * Applies the smooth filter. Makes the image smoother.
      *
      * @param *number level
-     * @return Eden\Image\Image
+     * @return this
      */
     public function smooth($level)
     {
@@ -661,7 +659,7 @@ class Base extends CoreBase
      *
      * @param *string the path to save to
      * @param string|null the render type
-     * @return Eden\Image\Image
+     * @return this
      */
     public function save($path, $type = null)
     {
@@ -669,20 +667,19 @@ class Base extends CoreBase
         #imagegif() - Output image to browser or file
         #imagewbmp() - Output image to browser or file
         #imagejpeg() - Output image to browser or file
-        //$path = Path::i()->getAbsolute($path);
-
-        if(!$type) {
+        
+        if (!$type) {
             $type = $this->type;
         }
 
-        switch($type) {
+        switch ($type) {
             case 'gif':
                 imagegif($this->resource, $path);
                 break;
             case 'png':
                 $quality = (100 - $this->quality) / 10;
 
-                if($quality > 9) {
+                if ($quality > 9) {
                     $quality = 9;
                 }
 
@@ -728,7 +725,7 @@ class Base extends CoreBase
     protected function createResource($data, $path)
     {
         //if the GD Library is not installed
-        if(!function_exists('gd_info')) {
+        if (!function_exists('gd_info')) {
             //throw error
             Exception::i(self::GD_NOT_INSTALLED)->trigger();
         }
@@ -744,13 +741,13 @@ class Base extends CoreBase
 
         $resource = false;
 
-        if(!$path) {
+        if (!$path) {
             return imagecreatefromstring($data);
         }
 
         //depending on the extension lets load
         //the file using the right GD loader
-        switch($this->type) {
+        switch ($this->type) {
             case 'gd':
                 $resource = imagecreatefromgd($data);
                 break;
@@ -778,7 +775,7 @@ class Base extends CoreBase
         }
 
         //if there is no resource still
-        if(!$resource) {
+        if (!$resource) {
             //throw error
             Exception::i()
                 ->setMessage(self::NOT_VALID_IMAGE_FILE)
@@ -801,5 +798,4 @@ class Base extends CoreBase
         $ratio = $destinationHeight / $sourceHeight;
         return  $sourceWidth * $ratio;
     }
-
 }
