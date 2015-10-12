@@ -15,9 +15,10 @@ namespace Eden\Image;
  * overloaded and overrided as well as provide some basic class
  * loading patterns.
  *
- * @vendor Eden
- * @package image
- * @author Christian Blanquera cblanquera@openovate.com
+ * @vendor   Eden
+ * @package  image
+ * @author   Christian Blanquera <cblanquera@openovate.com>
+ * @standard PSR-2
  */
 class Index extends Base
 {
@@ -35,6 +36,7 @@ class Index extends Base
      * @param string|null
      * @param bool
      * @param int
+     *
      * @return void
      */
     public function __construct($data, $type = null, $path = true, $quality = 75)
@@ -132,6 +134,7 @@ class Index extends Base
      * Applies the brightness filter. Changes the brightness of the image.
      *
      * @param *number level
+     *
      * @return this
      */
     public function brightness($level)
@@ -152,6 +155,7 @@ class Index extends Base
      * @param *number blue
      * @param *number green
      * @param number alpha
+     *
      * @return this
      */
     public function colorize($red, $blue, $green, $alpha = 0)
@@ -177,6 +181,7 @@ class Index extends Base
      * Applies the contrast filter. Changes the contrast of the image.
      *
      * @param *number level
+     *
      * @return this
      */
     public function contrast($level)
@@ -195,6 +200,7 @@ class Index extends Base
      *
      * @param int|null the width; if null will use the original width
      * @param int|null the height; if null will use the original height
+     *
      * @return this
      */
     public function crop($width = null, $height = null)
@@ -399,6 +405,7 @@ class Index extends Base
      * Inverts the image.
      *
      * @param bool if true invert vertical; if false invert horizontal
+     *
      * @return this
      */
     public function invert($vertical = false)
@@ -481,6 +488,7 @@ class Index extends Base
      *
      * @param int|null the width; if null will use the original width
      * @param int|null the height; if null will use the original height
+     *
      * @return this
      */
     public function resize($width = null, $height = null)
@@ -547,6 +555,7 @@ class Index extends Base
      *
      * @param *int the degree to rotate by
      * @param int background color code
+     *
      * @return this
      */
     public function rotate($degree, $background = 0)
@@ -577,6 +586,7 @@ class Index extends Base
      *
      * @param int|null the width; if null will use the original width
      * @param int|null the height; if null will use the original height
+     *
      * @return this
      */
     public function scale($width = null, $height = null)
@@ -641,6 +651,7 @@ class Index extends Base
      * Applies the smooth filter. Makes the image smoother.
      *
      * @param *number level
+     *
      * @return this
      */
     public function smooth($level)
@@ -659,6 +670,7 @@ class Index extends Base
      *
      * @param *string the path to save to
      * @param string|null the render type
+     *
      * @return this
      */
     public function save($path, $type = null)
@@ -707,6 +719,7 @@ class Index extends Base
      * @param *number
      * @param *number
      * @param *number
+     *
      * @return number
      */
     protected function getHeightAspectRatio($sourceWidth, $sourceHeight, $destinationWidth)
@@ -720,6 +733,7 @@ class Index extends Base
      *
      * @param *string
      * @param *string
+     *
      * @return [RESOURCE]
      */
     protected function createResource($data, $path)
@@ -791,6 +805,7 @@ class Index extends Base
      * @param *number
      * @param *number
      * @param *number
+     *
      * @return number
      */
     protected function getWidthAspectRatio($sourceWidth, $sourceHeight, $destinationHeight)
