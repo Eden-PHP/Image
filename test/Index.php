@@ -1,11 +1,11 @@
 <?php
 
 //-->
-/*
- * This file is part of the Image package of the Eden PHP Library.
- * (c) 2013-2014 Openovate Labs
+/**
+ * This file is part of the Eden PHP Library.
+ * (c) 2014-2016 Openovate Labs
  *
- * Copyright and license information can be found at LICENSE
+ * Copyright and license information can be found at LICENSE.txt
  * distributed with this package.
  */
 class EdenImageIndexTest extends PHPUnit_Framework_TestCase 

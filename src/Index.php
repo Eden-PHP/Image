@@ -1,40 +1,57 @@
 <?php //-->
-/*
- * This file is part of the Image package of the Eden PHP Library.
- * (c) 2013-2014 Openovate Labs
+/**
+ * This file is part of the Eden PHP Library.
+ * (c) 2014-2016 Openovate Labs
  *
- * Copyright and license information can be found at LICENSE
+ * Copyright and license information can be found at LICENSE.txt
  * distributed with this package.
  */
 
 namespace Eden\Image;
 
 /**
- * The base class for all classes wishing to integrate with Eden.
- * Extending this class will allow your methods to seemlessly be
- * overloaded and overrided as well as provide some basic class
- * loading patterns.
+ * Main image manipulation class
  *
- * @vendor Eden
- * @package image
- * @author Christian Blanquera cblanquera@openovate.com
+ * @vendor   Eden
+ * @package  Image
+ * @author   Christian Blanquera <cblanquera@openovate.com>
+ * @standard PSR-2
  */
 class Index extends Base
 {
+    /**
+     * @const string GD_NOT_INSTALLED GD Error template
+     */
     const GD_NOT_INSTALLED = 'PHP GD Library is not installed.';
-    const NOT_VALID_IMAGE_FILE = '%s is not a valid image file.';
 
+    /**
+     * @const string NOT_VALID_IMAGE_FILE Error template
+     */
+    const NOT_VALID_IMAGE_FILE = '%s is not a valid image file.';
+       
+    /**
+     * @var [RESOURCE] $resource The GD Resource
+     */
     protected $resource = null;
+       
+    /**
+     * @var int $width The width of the image for meta
+     */
     protected $width = 0;
+       
+    /**
+     * @var int $height The height of the image for meta
+     */
     protected $height = 0;
 
     /**
      * Pre set the image data
      *
-     * @param *string
-     * @param string|null
-     * @param bool
-     * @param int
+     * @param *string     The raw data
+     * @param string|null The mime type
+     * @param bool        If the raw data is a file path
+     * @param int         The quality of the image to output
+     *
      * @return void
      */
     public function __construct($data, $type = null, $path = true, $quality = 75)
@@ -118,7 +135,7 @@ class Index extends Base
     /**
      * Applies the selective blur filter. Blurs the image
      *
-     * @return this
+     * @return Eden\Image\Index
      */
     public function blur()
     {
@@ -131,8 +148,9 @@ class Index extends Base
     /**
      * Applies the brightness filter. Changes the brightness of the image.
      *
-     * @param *number level
-     * @return this
+     * @param *number $level The level of brightness
+     *
+     * @return Eden\Image\Index
      */
     public function brightness($level)
     {
@@ -148,11 +166,12 @@ class Index extends Base
     /**
      * Applies the colorize filter. Like greyscale except you can specify the color.
      *
-     * @param *number red
-     * @param *number blue
-     * @param *number green
-     * @param number alpha
-     * @return this
+     * @param *number $red   The 255 value of red to use
+     * @param *number $blue  The 255 value of blue to use
+     * @param *number $green The 255 value of green to use
+     * @param number  $alpha The level of alpha transparency
+     *
+     * @return Eden\Image\Index
      */
     public function colorize($red, $blue, $green, $alpha = 0)
     {
@@ -176,8 +195,9 @@ class Index extends Base
     /**
      * Applies the contrast filter. Changes the contrast of the image.
      *
-     * @param *number level
-     * @return this
+     * @param *number $level The level of contrast
+     *
+     * @return Eden\Image\Index
      */
     public function contrast($level)
     {
@@ -193,9 +213,10 @@ class Index extends Base
     /**
      * Crops the image
      *
-     * @param int|null the width; if null will use the original width
-     * @param int|null the height; if null will use the original height
-     * @return this
+     * @param int|null $width  The width; If null will use the original width
+     * @param int|null $height The height; If null will use the original height
+     *
+     * @return Eden\Image\Index
      */
     public function crop($width = null, $height = null)
     {
@@ -326,7 +347,7 @@ class Index extends Base
     /**
      * Applies the edgedetect filter. Uses edge detection to highlight the edges in the image.
      *
-     * @return this
+     * @return Eden\Image\Index
      */
     public function edgedetect()
     {
@@ -339,7 +360,7 @@ class Index extends Base
     /**
      * Applies the emboss filter. Embosses the image.
      *
-     * @return this
+     * @return Eden\Image\Index
      */
     public function emboss()
     {
@@ -352,7 +373,7 @@ class Index extends Base
     /**
      * Applies the gaussian blur filter. Blurs the image using the Gaussian method.
      *
-     * @return this
+     * @return Eden\Image\Index
      */
     public function gaussianBlur()
     {
@@ -385,7 +406,7 @@ class Index extends Base
     /**
      * Applies the greyscale filter. Converts the image into grayscale.
      *
-     * @return this
+     * @return Eden\Image\Index
      */
     public function greyscale()
     {
@@ -398,8 +419,9 @@ class Index extends Base
     /**
      * Inverts the image.
      *
-     * @param bool if true invert vertical; if false invert horizontal
-     * @return this
+     * @param bool $vertical If true invert vertical; if false invert horizontal
+     *
+     * @return Eden\Image\Index
      */
     public function invert($vertical = false)
     {
@@ -452,7 +474,7 @@ class Index extends Base
     /**
      * Applies the mean removal filter. Uses mean removal to achieve a "sketchy" effect.
      *
-     * @return this
+     * @return Eden\Image\Index
      */
     public function meanRemoval()
     {
@@ -465,7 +487,7 @@ class Index extends Base
     /**
      * Applies the greyscale filter. Reverses all colors of the image.
      *
-     * @return this
+     * @return Eden\Image\Index
      */
     public function negative()
     {
@@ -479,9 +501,10 @@ class Index extends Base
      * Resizes the image. This is a version of
      * scale but keeping it's original aspect ratio
      *
-     * @param int|null the width; if null will use the original width
-     * @param int|null the height; if null will use the original height
-     * @return this
+     * @param int|null $width  the width; if null will use the original width
+     * @param int|null $height the height; if null will use the original height
+     *
+     * @return Eden\Image\Index
      */
     public function resize($width = null, $height = null)
     {
@@ -545,9 +568,10 @@ class Index extends Base
     /**
      * Rotates the image.
      *
-     * @param *int the degree to rotate by
-     * @param int background color code
-     * @return this
+     * @param *int $degree     The degree to rotate by
+     * @param int  $background Background color code
+     *
+     * @return Eden\Image\Index
      */
     public function rotate($degree, $background = 0)
     {
@@ -575,9 +599,10 @@ class Index extends Base
      * to null a width or height will be auto determined based on the
      * aspect ratio
      *
-     * @param int|null the width; if null will use the original width
-     * @param int|null the height; if null will use the original height
-     * @return this
+     * @param int|null $width  The width; if null will use the original width
+     * @param int|null $height The height; if null will use the original height
+     *
+     * @return Eden\Image\Index
      */
     public function scale($width = null, $height = null)
     {
@@ -627,7 +652,7 @@ class Index extends Base
     /**
      * Sets the background color to be transparent
      *
-     * @return this
+     * @return Eden\Image\Index
      */
     public function setTransparency()
     {
@@ -640,8 +665,9 @@ class Index extends Base
     /**
      * Applies the smooth filter. Makes the image smoother.
      *
-     * @param *number level
-     * @return this
+     * @param *number $level The level of smoothness
+     *
+     * @return Eden\Image\Index
      */
     public function smooth($level)
     {
@@ -657,9 +683,10 @@ class Index extends Base
     /**
      * Saves the image data to a file
      *
-     * @param *string the path to save to
-     * @param string|null the render type
-     * @return this
+     * @param *string     $path The path to save to
+     * @param string|null $type The render type
+     *
+     * @return Eden\Image\Index
      */
     public function save($path, $type = null)
     {
@@ -702,24 +729,11 @@ class Index extends Base
     }
 
     /**
-     * Determines the preserved height given the original dimensions and the width
-     *
-     * @param *number
-     * @param *number
-     * @param *number
-     * @return number
-     */
-    protected function getHeightAspectRatio($sourceWidth, $sourceHeight, $destinationWidth)
-    {
-        $ratio = $destinationWidth / $sourceWidth;
-        return  $sourceHeight * $ratio;
-    }
-
-    /**
      * Returns the GD image resource
      *
-     * @param *string
-     * @param *string
+     * @param *string $data The raw image data
+     * @param *string $path Whether if this raw data is a file path
+     *
      * @return [RESOURCE]
      */
     protected function createResource($data, $path)
@@ -786,11 +800,27 @@ class Index extends Base
     }
 
     /**
+     * Determines the preserved height given the original dimensions and the width
+     *
+     * @param *number $sourceWidth      The original width
+     * @param *number $sourceHeight     The original width
+     * @param *number $destinationWidth The desired width
+     *
+     * @return number
+     */
+    protected function getHeightAspectRatio($sourceWidth, $sourceHeight, $destinationWidth)
+    {
+        $ratio = $destinationWidth / $sourceWidth;
+        return  $sourceHeight * $ratio;
+    }
+
+    /**
      * Determines the preserved width given the original dimensions and the height
      *
-     * @param *number
-     * @param *number
-     * @param *number
+     * @param *number $sourceWidth       The original width
+     * @param *number $sourceHeight      The original width
+     * @param *number $destinationHeight The desired Height
+     *
      * @return number
      */
     protected function getWidthAspectRatio($sourceWidth, $sourceHeight, $destinationHeight)
